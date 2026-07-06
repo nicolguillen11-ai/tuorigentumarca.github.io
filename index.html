@@ -465,15 +465,12 @@
     gap: 1.8rem; max-width: 860px; margin: 0 auto;
   }
  
-  .cta-card {
-    grid-row: 1 / -1;
-    display: grid;
-    grid-template-rows: subgrid;
-    row-gap: 0;
-    border-radius: 26px; padding: 2.6rem; position: relative; overflow: hidden;
-  }
-  
-
+  .cta-card{
+    display:flex;
+    flex-direction:column;
+    border-radius:26px;
+    padding:2.6rem;
+}
   
   .cta-card.free {
     background: white;
@@ -862,9 +859,12 @@
       <ul class="cta-card-features">
         <li><span class="feature-check">✓</span> Concepto base de identidad simbólica</li>
         <li><span class="feature-check">✓</span> Explicación de los 4 pilares de la carta natal</li>
-        <li><span class="feature-check">✓</span> Tabla síntesis de signos zodiacales</li>
+        <li><span class="feature-check">✓</span> Tabla síntesis de los 12 signos zodiacales</li>
         <li><span class="feature-check">✓</span> Recursos básicos para construir tu brief</li>
-        <li><span class="feature-check">✓</span> Pasos de la metodología</li>
+        <li><span class="feature-check">✓</span> Descubre los 5 pasos de la metodología de forma sencilla
+        
+        
+        </li>
       </ul>
       <div class="cta-card-footer">
         <a href="https://drive.google.com/file/d/14NI4u3GsgRnWBwY4n28SgenxJU-qr0QS/view?usp=sharing" target="_blank" class="cta-btn-free">
@@ -886,6 +886,7 @@
         <li><span class="feature-check">✓</span> Workbook premium + sistema listo para construir una marca real</li>
         <li><span class="feature-check">✓</span> Ejemplos aplicados de construcción de identidad</li>
         <li><span class="feature-check">✓</span> Interpretación profunda de los 4 pilares + signos</li>
+           <li> </li>
       </ul>
       <div class="cta-card-footer">
         <a href="https://gumroad.com" target="_blank" class="cta-btn-premium">
