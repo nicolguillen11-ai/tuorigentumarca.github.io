@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tu Origen, Tu Marca — Identidad Visual desde tu Carta Natal</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;1,14..32,300;1,14..32,400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --color-primary: #511110;
+    --color-secondary: #341111;
+    --color-background: #F5F4EE;
+    --color-accent: #FEEDAC;
+    --color-accent-light: #D1E8F8;
+    --color-text: #341111;
+    --color-text-light: #F5F4EE;
+    --color-star: #C9982B;
+
+    /* derived */
+    --color-primary-dim: rgba(81,17,16,0.08);
+    --color-primary-mid: rgba(81,17,16,0.55);
+    --color-accent-dim: rgba(254,237,172,0.18);
+    --color-accent-border: rgba(254,237,172,0.28);
+    /* más oscuro y con más peso para mejor contraste sobre fondos claros */
+    --color-text-muted: rgba(52,17,17,0.72);
+    --color-bg-card: rgba(255,255,255,0.72);
+  }
+
+  html { scroll-behavior: smooth; }
+  html, body { height: 100%; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--color-background);
+    color: var(--color-text);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 1.1rem 2.5rem;
+    display: flex; align-items: center; justify-content: space-between;
+    background: rgba(245,244,238,0.88);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid rgba(81,17,16,0.1);
+  }
+  .nav-logo {
+    font-size: 1,5%; font-weight: 700;
+    color: var(--color-primary);
+    letter-spacing: 0.01em;
+  }
+  .nav-logo span { font-weight: 300; font-style: italic; }
+  .nav-cta {
+    background: var(--color-primary);
+    color: #FFFFFF;
+    padding: 0.52rem 1.50rem;
+    border-radius: 100px;
+    font-size: 1rem; font-weight: 600;
+    text-decoration: none;
+    letter-spacing: 0.02em;
+    transition: background 0.2s;
+  }
+  .nav-cta:hover { background: var(--color-secondary); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 7rem 6vw 5rem;
+    gap: 4rem;
+    background: var(--color-primary);
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 72% 38%, rgba(209,232,248,0.09) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .hero::after {
+    content: '';
+    position: absolute; bottom: -80px; left: -80px;
+    width: 400px; height: 400px; border-radius: 50%;
+    border: 1px solid rgba(254,237,172,0.06);
+    pointer-events: none;
+  }
+
+  .hero-text { position: relative; z-index: 2; }
+
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 0.6rem;
+    font-size: 1rem; font-weight: 500; letter-spacing: 0.16em;
+    text-transform: uppercase; color: var(--color-accent);
+    margin-bottom: 2rem; opacity: 0.85;
+  }
+  .hero-eyebrow::before {
+    content: '';
+    display: block; width: 24px; height: 1px;
+    background: var(--color-accent); opacity: 0.6;
+  }
+
+  .hero h1 {
+    font-size: clamp(2.8rem, 5vw, 4.4rem);
+    font-weight: 700; line-height: 1.05;
+    letter-spacing: -0.02em;
+    /* blanco puro para máxima legibilidad sobre el fondo vino */
+    color: #FFFFFF;
+    margin-bottom: 1.6rem;
+  }
+  .hero h1 em {
+    font-style: italic; font-weight: 300;
+    color: var(--color-accent);
+  }
+
+  .hero-sub {
+    font-size: 1,2; font-weight: 400; line-height: 1.75;
+    color: rgba(255,255,255,0.88);
+    max-width: 460px;
+    margin-bottom: 2.8rem;
+  }
+
+  .hero-actions { display: flex; gap: 0.9rem; flex-wrap: wrap; }
+
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    background: var(--color-accent);
+    color: var(--color-secondary);
+    padding: 0.95rem 1.9rem;
+    border-radius: 100px;
+    font-weight: 700; font-size: 1rem;
+    text-decoration: none;
+    transition: all 0.2s;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.18);
+  }
+  .btn-primary:hover {
+    background: #fff9e6;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 28px rgba(0,0,0,0.22);
+  }
+
+  .btn-secondary {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    background: transparent;
+    color: var(--color-accent);
+    padding: 0.95rem 1.9rem;
+    border-radius: 100px;
+    border: 1.5px solid rgba(254,237,172,0.4);
+    font-weight: 500; font-size: 1rem;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+  .btn-secondary:hover {
+    border-color: var(--color-accent);
+    background: var(--color-accent-dim);
+    transform: translateY(-2px);
+  }
+
+  /* ── CHART VISUAL ── */
+  .hero-visual {
+    display: flex; align-items: center; justify-content: center;
+    position: relative; z-index: 2;
+  }
+  .chart-wrapper {
+    position: relative; width: min(400px, 88vw); aspect-ratio: 1;
+  }
+  .chart-svg {
+    width: 100%; height: 100%;
+    animation: chartRotate 80s linear infinite;
+  }
+  @keyframes chartRotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+  .chart-center {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    text-align: center;
+  }
+  .chart-center-symbol {
+    font-size: 2.4rem; line-height: 1; margin-bottom: 0.4rem;
+    color: var(--color-accent);
+    filter: drop-shadow(0 0 16px rgba(254,237,172,0.4));
+  }
+  .chart-center-label {
+    font-size: 0,62rem; font-weight: 600; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--color-accent); opacity: 0.75;
+  }
+  .planet-dot {
+    position: absolute;
+    width: 42px; height: 42px;
+    background: var(--color-secondary);
+    border: 1.5px solid var(--color-accent);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem; color: var(--color-accent);
+    box-shadow: 0 0 0 5px rgba(254,237,172,0.08);
+  }
+  /* posiciones corregidas: MC arriba, Luna izquierda, Ascendente derecha, Sol abajo */
+  .planet-dot:nth-child(1) { top: -%; left: 0%; transform: translateX(-50%); }
+  .planet-dot:nth-child(2) { top: -3%; left: 50%; transform: translateX(-50%); }
+  .planet-dot:nth-child(3) { right: -1%; top: 0%; transform: translateY(-50%); }
+  .planet-dot:nth-child(4) { right: %; top: 43%; transform: translateY(-50%); }
+  .planet-label {
+    position: absolute;
+    font-size: 0.6rem; font-weight: 600; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--color-accent); opacity: 0.75;
+    white-space: nowrap;
+  }
+  .planet-label.top    { top: -10%;  left: 50%; transform: translateX(-50%); }
+  .planet-label.bottom { bottom: -18%; left: 50%; transform: translateX(-50%); }
+  .planet-label.left   { left: -26%; top: 45%; transform: translateY(-50%); }
+  .planet-label.right  { right: -24%; top: 50%; transform: translateY(-50%); }
+
+  /* ── INTRO STRIP ── */
+  .intro-strip {
+    background: var(--color-accent);
+    padding: 3.5rem 6vw;
+    text-align: center;
+  }
+  .intro-strip p {
+    font-size: clamp(1.1rem, 2.2vw, 1.5rem);
+    font-weight: 400; font-style: italic;
+    color: var(--color-secondary);
+    max-width: 680px; margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  /* ── SECTIONS GENERAL ── */
+  section { padding: 6rem 6vw; }
+
+  .section-eyebrow {
+    font-size: 1rem; font-weight: 700; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--color-primary); opacity: 0.75;
+    margin-bottom: 0.8rem;
+  }
+  .section-title {
+    font-size: clamp(1.85rem, 3.2vw, 2.8rem);
+    font-weight: 700; line-height: 1.12; letter-spacing: -0.02em;
+    color: var(--color-primary);
+    margin-bottom: 1.1rem;
+  }
+  .section-title em { font-style: italic; font-weight: 400; color: var(--color-primary); opacity: 0.8; }
+  .section-body {
+    font-size: 1rem; font-weight: 600; line-height: 1.75;
+    color: var(--color-text-muted); max-width: 520px;
+  }
+
+  /* ── PILLARS ── */
+  .pillars { background: var(--color-background); }
+  .pillars-inner {
+    max-width: 1140px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 2fr; gap: 5rem; align-items: start;
+  }
+  .pillars-header { position: sticky; top: 7rem; }
+  .pillars-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+
+  .pillar-card {
+    background: white;
+    border-radius: 18px;
+    padding: 1.8rem;
+    border: 1px solid rgba(81,17,16,0.07);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .pillar-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 36px rgba(81,17,16,0.09);
+  }
+  .pillar-icon {
+    width: 44px; height: 44px; border-radius: 11px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.40rem; margin-bottom: 1rem;
+    background: var(--color-primary-dim);
+    color: var(--color-primary);
+  }
+  .pillar-icon.accent-bg { background: rgba(254,237,172,0.45); }
+  .pillar-icon.blue-bg   { background: rgba(209,232,248,0.5); }
+
+  .pillar-name {
+    font-size: 1rem; font-weight: 700; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--color-text-muted);
+    margin-bottom: 0.25rem;
+  }
+  .pillar-title {
+    font-size: 1.05rem; font-weight: 600;
+    color: var(--color-primary); margin-bottom: 0.55rem;
+  }
+  .pillar-desc {
+    font-size: 1rem; font-weight: 400; line-height: 1.65;
+    color: var(--color-text-muted);
+  }
+  .pillar-tag {
+    display: inline-block; margin-top: 1rem;
+    font-size: 0.73rem; font-weight: 600; letter-spacing: 0.06em;
+    padding: 0.28rem 0.75rem; border-radius: 100px;
+    background: var(--color-primary-dim); color: var(--color-primary);
+  }
+
+  /* ── METHODOLOGY ── */
+  .methodology { background: var(--color-secondary); }
+  .methodology .section-eyebrow { color: var(--color-accent); opacity: 0.85; }
+  .methodology .section-title { color: #FFFFFF; }
+  .methodology .section-body { color: rgba(255,255,255,0.78); }
+
+  .method-steps {
+    display: grid; grid-template-columns: repeat(3,1fr);
+    gap: 1.2rem; margin-top: 3.5rem;
+  }
+  .step-card {
+    background: rgba(245,244,238,0.05);
+    border: 1px solid rgba(245,244,238,0.08);
+    border-radius: 18px; padding: 1.8rem;
+    position: relative; transition: background 0.2s;
+  }
+  .step-card:hover { background: rgba(245,244,238,0.09); }
+  .step-num {
+    font-size: 2.2rem; font-weight: 700; letter-spacing: -0.03em;
+    color: #feedac; line-height: 1; margin-bottom: 0.8rem;
+  }
+  .step-icon {
+    position: absolute; top: 1.5rem; right: 1.5rem;
+    font-size: 1.1rem; opacity: 0.35;
+  }
+  .step-title {
+    font-size: 1rem; font-weight: 700;
+    color: #feedac; margin-bottom: 0.5rem;
+  }
+  .step-desc {
+    font-size: 1rem; font-weight: 400; line-height: 1.65;
+    color: #ffffff;
+  }
+
+  /* ── INCLUDES ── */
+  .includes { background: var(--color-background); }
+  .includes-inner {
+    max-width: 1100px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 4.5rem; align-items: center;
+  }
+
+  .guide-mockup {
+    background: var(--color-primary);
+    border-radius: 22px; padding: 2.5rem;
+    aspect-ratio: 3/4;
+    display: flex; flex-direction: column; justify-content: space-between;
+    position: relative; overflow: hidden;
+    box-shadow: 0 24px 60px rgba(81,17,16,0.28);
+  }
+  .guide-mockup::before {
+    content: ''; position: absolute; top: -50px; right: -50px;
+    width: 200px; height: 200px; border-radius: 50%;
+    border: 1px solid rgba(254,237,172,0.1);
+  }
+  .guide-mockup::after {
+    content: ''; position: absolute; bottom: -70px; left: -40px;
+    width: 240px; height: 240px; border-radius: 50%;
+    border: 1px solid rgba(254,237,172,0.06);
+  }
+  .guide-top-label {
+    font-size: 1rem; font-weight: 600; letter-spacing: 0.16em;
+    text-transform: uppercase; color: var(--color-accent); opacity: 0.85;
+  }
+  .guide-title {
+    font-size: 2rem; font-weight: 700; letter-spacing: -0.02em;
+    color: #FFFFFF; line-height: 1.15; margin-top: 0.6rem;
+  }
+  .guide-title em { font-style: italic; font-weight: 300; color: var(--color-accent); }
+  .guide-subtitle {
+    font-size: 1rem; font-weight: 400;
+    color: #ffffff; line-height: 1.55; margin-top: 0.5rem;
+  }
+  .guide-cover-img {
+    display: block; width: 100%; height: auto;
+    margin-top: 1rem; border-radius: 10px;
+  }
+  .guide-chapters { list-style: none; border-top: 1px solid rgba(254,237,172,0.1); padding-top: 1.2rem; }
+  .guide-chapters li {
+    font-size: 1rem; font-weight: 400; color: #ffffff;
+    padding: 0.3rem 0; display: flex; align-items: center; gap: 0.5rem;
+  }
+  .guide-chapters li::before { content: '—'; color: var(--color-accent); opacity: 0.6; flex-shrink: 0; }
+
+  .includes-list { list-style: none; }
+  .includes-list li {
+    display: flex; align-items: flex-start; gap: 1rem;
+    padding: 1.2rem 0;
+    border-bottom: 1px solid rgba(81,17,16,0.07);
+  }
+  .includes-list li:last-child { border-bottom: none; }
+  .includes-check {
+    width: 50px; height: 50px; border-radius: 50%;
+    background: var(--color-primary-dim);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; font-size: 1.7rem; color: var(--color-primary);
+    margin-top: 2px;
+  }
+  .includes-item-title {
+    font-size: 1,7rem; font-weight: 700;
+    color: var(--color-primary); margin-bottom: 0.2rem;
+  }
+  .includes-item-desc {
+    font-size: 1rem; font-weight: 450;
+    color: var(--color-text-muted); line-height: 1.55;
+  }
+
+  /* ── TESTIMONIALS ── */
+  .testimonials { background: var(--color-background); text-align: center; }
+  .testimonials-inner { max-width: 1100px; margin: 0 auto; }
+  .testimonials-header { max-width: 560px; margin: 0 auto; }
+  .testimonials-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 1.4rem; margin-top: 3.2rem;
+  }
+  .testimonial-card {
+    background: white;
+    border-radius: 18px;
+    padding: 2rem;
+    border: 1px solid rgba(81,17,16,0.07);
+    text-align: left;
+    display: flex; flex-direction: column;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .testimonial-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 36px rgba(81,17,16,0.09);
+  }
+  .testimonial-stars {
+    color: var(--color-star);
+    font-size: 1rem;
+    letter-spacing: 0.15em;
+    margin-bottom: 1.1rem;
+  }
+  .testimonial-quote {
+    font-size: 1rem; font-weight: 400; font-style: italic;
+    line-height: 1.7; color: var(--color-text);
+    margin-bottom: 1.4rem; flex-grow: 1;
+  }
+  .testimonial-author {
+    font-size: 1rem; font-weight: 700;
+    color: var(--color-primary);
+    padding-top: 1rem;
+    border-top: 1px solid rgba(81,17,16,0.08);
+  }
+
+ /* ── CTA DUAL ── */
+    .cta-section { background: var(--color-accent-light); padding: 6rem 6vw; }
+  .cta-header { text-align: center; max-width: 580px; margin: 0 auto 4rem; }
+  .cta-header .section-body { margin: 0.5rem auto 0; max-width: 100%; }
+ 
+  /* Grid con filas compartidas: cada tarjeta usa subgrid para heredar
+     la altura de fila del padre (badge / título / descripción / features / botón),
+     así ambas tarjetas alinean cada bloque sin importar cuánto texto tenga cada una. */
+  .cta-cards {
+    display: grid; grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto auto 1fr auto auto;
+    gap: 1.8rem; max-width: 860px; margin: 0 auto;
+  }
+ 
+  .cta-card {
+    grid-row: 1 / -1;
+    display: grid;
+    grid-template-rows: subgrid;
+    row-gap: 0;
+    border-radius: 26px; padding: 2.6rem; position: relative; overflow: hidden;
+  }
+  
+
+  
+  .cta-card.free {
+    background: white;
+    border: 1.5px solid rgba(81,17,16,0.1);
+  }
+  .cta-card.premium {
+    background: var(--color-primary);
+    border: 1.5px solid var(--color-primary);
+  }
+ 
+  
+  
+  
+ 
+  .cta-card-title-group { margin-bottom: 1rem; align-self: start; }
+  .cta-card-title {
+    font-size: 1.5rem; font-weight: 700; letter-spacing: -0.02em;
+    line-height: 1.2;
+  }
+  .free .cta-card-title { color: var(--color-primary); }
+  .premium .cta-card-title { color: #FFFFFF; }
+ 
+   .cta-card-desc {
+    font-size: 1rem; font-weight: 600; line-height: 1.68; margin-bottom: 1.9rem;
+    min-height: 4.7rem;
+  }
+  .free .cta-card-desc { color: var(--color-text-muted); }
+  .premium .cta-card-desc { color: #ffffff; }
+ 
+  .cta-card-features { list-style: none; margin-bottom: 2.2rem; align-self: start; }
+  .cta-card-features li {
+    font-size: 1rem; font-weight: 400; padding: 0.42rem 0;
+    display: flex; align-items: center; gap: 0.7rem;
+  }
+  .free .cta-card-features li { color: var(--color-text); }
+  .premium .cta-card-features li { color: rgba(255,255,255,0.88); }
+ 
+.feature-check {
+    width: 17px; height: 17px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 2rem; flex-shrink: 0
+  }
+  .free .feature-check { background: var(--color-primary-dim); color: var(--color-primary); }
+  .premium .feature-check { background: rgba(200, 163, 18, 0.25); color: var(--color-accent); }
+ 
+  .cta-btn-free, .cta-btn-premium { align-self: end; }
+  .premium-note { align-self: start; }
+ 
+  .cta-btn-free {
+    display: block; text-align: center;
+    background: var(--color-primary); color: #FFFFFF;
+    padding: 0.95rem 2rem; border-radius: 100px;
+    font-size: 1.2rem; font-weight: 700;
+    text-decoration: none; transition: all 0.2s;
+  }
+  .cta-btn-free:hover { background: var(--color-secondary); transform: translateY(-2px); }
+ 
+  .cta-btn-premium {
+    display: block; text-align: center;
+    background: var(--color-accent); color: var(--color-secondary);
+    padding: 0.95rem 2rem; border-radius: 100px;
+    font-size: 1.2rem; font-weight: 700;
+    text-decoration: none; transition: all 0.2s;
+    box-shadow: 0 4px 20px rgba(254,237,172,0.2);
+  }
+  .cta-btn-premium:hover {
+    background: #fff9e0; transform: translateY(-2px);
+    box-shadow: 0 8px 28px rgba(254,237,172,0.3);
+  }
+ 
+  .premium-note {
+    font-size: 0.7rem; color: rgba(255,255,255,0.55); text-align: center;
+    margin-top: 1rem; font-weight: 400;
+  }
+ 
+  .premium-star {
+    position: absolute; top: 2rem; right: 2rem;
+    font-size: 1.3rem; color: var(--color-accent); opacity: 0.25;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--color-secondary);
+    color: rgba(255,255,255,0.7);
+    text-align: center; padding: 3.5rem 6vw 2.2rem;
+    font-size: 1rem; font-weight: 400; line-height: 1.7;
+    margin-top: auto;
+  }
+  footer strong { color: #FFFFFF; font-weight: 600; font-style: italic; }
+
+  .footer-shipping {
+    max-width: 640px; margin: 0 auto 2.4rem;
+    padding-bottom: 2.2rem;
+    border-bottom: 1px solid rgba(255,255,255,0.14);
+    text-align: left;
+  }
+  .footer-shipping-title {
+    font-size: 1rem; font-weight: 700; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--color-accent);
+    opacity: 0.9; margin-bottom: 0.8rem; text-align: center;
+  }
+  .footer-shipping p {
+    font-size: 1rem; color: rgba(255,255,255,0.68);
+    line-height: 1.7; margin-bottom: 0.6rem; text-align: center;
+  }
+  .footer-shipping p:last-child { margin-bottom: 0; }
+
+  .footer-copy p { margin-bottom: 0; }
+  .footer-copy p + p { margin-top: 0.4rem; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr; padding-top: 6rem; }
+    .hero-visual { display: none; }
+    .pillars-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+    .pillars-header { position: static; }
+    .pillars-grid { grid-template-columns: 1fr; }
+    .method-steps { grid-template-columns: 1fr 1fr; }
+    .includes-inner { grid-template-columns: 1fr; }
+    .testimonials-grid { grid-template-columns: 1fr; }
+    .cta-cards { grid-template-columns: 1fr; }
+    .cta-card-title-group, .cta-card-desc { min-height: 0; }
+  }
+  @media (max-width: 600px) {
+    .method-steps { grid-template-columns: 1fr; }
+    nav { padding: 1rem 1.5rem; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .chart-svg { animation: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Tu origen, tu marca</div>
+  <a href="#descarga" class="nav-cta">Descarga la Guía Gratuita</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-text">
+    <h1>Tu carta natal<br>como origen <br>de tu marca</h1>
+    <p class="hero-sub">
+      Descubre una metodología que transforma el lenguaje simbólico de la carta natal en decisiones estratégicas de diseño, permitiéndote crear marcas personales coherentes, auténticas y reales.
+    </p>
+    <div class="hero-actions">
+      <a href="#descarga" class="btn-primary">↓ Descárgala gratis</a>
+      <a href="#premium" class="btn-secondary">Ver Kit Premium ✦</a>
+    </div>
+  </div>
+
+  <div class="hero-visual">
+    <div class="chart-wrapper">
+      <svg class="chart-svg" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="200" cy="200" r="185" stroke="rgba(245,244,238,0.07)" stroke-width="1"/>
+        <circle cx="200" cy="200" r="160" stroke="rgba(245,244,238,0.1)" stroke-width="1"/>
+        <circle cx="200" cy="200" r="185" stroke="rgba(254,237,172,0.15)" stroke-width="0.5" stroke-dasharray="4 9"/>
+        <circle cx="200" cy="200" r="82" stroke="rgba(245,244,238,0.08)" stroke-width="1"/>
+        <circle cx="200" cy="200" r="" stroke="rgba(254,237,172,0.12)" stroke-width="1" stroke-dasharray="3 7"/>
+        <line x1="200" y1="15" x2="200" y2="385" stroke="rgba(245,244,238,0.05)" stroke-width="1"/>
+        <line x1="15" y1="200" x2="385" y2="200" stroke="rgba(245,244,238,0.05)" stroke-width="1"/>
+        <line x1="69" y1="69" x2="331" y2="331" stroke="rgba(245,244,238,0.04)" stroke-width="1"/>
+        <line x1="331" y1="69" x2="69" y2="331" stroke="rgba(245,244,238,0.04)" stroke-width="1"/>
+        <line x1="130" y1="26" x2="270" y2="374" stroke="rgba(245,244,238,0.03)" stroke-width="1"/>
+        <line x1="26" y1="130" x2="374" y2="270" stroke="rgba(245,244,238,0.03)" stroke-width="1"/>
+        <line x1="270" y1="26" x2="130" y2="374" stroke="rgba(245,244,238,0.03)" stroke-width="1"/>
+        <line x1="374" y1="130" x2="26" y2="270" stroke="rgba(245,244,238,0.03)" stroke-width="1"/>
+        <circle cx="200" cy="17" r="3" fill="rgba(254,237,172,0.45)"/>
+        <circle cx="300" cy="40" r="2" fill="rgba(245,244,238,0.18)"/>
+        <circle cx="3" cy="133" r="3" fill="rgba(254,237,172,0.3)"/>
+        <circle cx="383" cy="200" r="2" fill="rgba(245,244,238,0.18)"/>
+        <circle cx="374" cy="267" r="3" fill="rgba(254,237,172,0.35)"/>
+        <circle cx="300" cy="360" r="2" fill="rgba(245,244,238,0.18)"/>
+        <circle cx="200" cy="383" r="3" fill="rgba(254,237,172,0.3)"/>
+        <circle cx="100" cy="360" r="2" fill="rgba(245,244,238,0.18)"/>
+        <circle cx="26" cy="267" r="3" fill="rgba(254,237,172,0.35)"/>
+        <circle cx="17" cy="200" r="2" fill="rgba(245,244,238,0.18)"/>
+        <circle cx="26" cy="133" r="3" fill="rgba(254,237,172,0.28)"/>
+        <circle cx="100" cy="40" r="2" fill="rgba(245,244,238,0.18)"/>
+        <line x1="200" y1="38" x2="200" y2="82" stroke="rgba(254,237,172,0.45)" stroke-width="1.5"/>
+        <line x1="200" y1="318" x2="200" y2="362" stroke="rgba(245,244,238,0.22)" stroke-width="1.5"/>
+        <line x1="38" y1="200" x2="82" y2="200" stroke="rgba(245,244,238,0.35)" stroke-width="1.5"/>
+        <line x1="318" y1="200" x2="362" y2="200" stroke="rgba(245,244,238,0.18)" stroke-width="1.5"/>
+      </svg>
+      <div class="planet-dot">MC</div>
+      <div class="planet-dot">☽</div>
+      <div class="planet-dot">↑</div>
+      <div class="planet-dot">☉</div>
+      <div class="planet-label top">Medio Cielo</div>
+      <div class="planet-label left">Ascendente</div>
+      <div class="planet-label right"></div>
+      <div class="planet-label bottom"></div>
+      <div class="chart-center">
+        <div class="chart-center-symbol">✦</div>
+        <div class="chart-center-label">Carta Natal</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INTRO STRIP -->
+<div class="intro-strip">
+  <p>
+    "En un mundo donde las marcas personales tienden a parecerse, la verdadera diferenciación no nace de las referencias,
+    <strong>sino de la esencia de quien las inspira.</strong>"
+  </p>
+</div>
+
+<!-- 4 PILLARS -->
+<section class="pillars">
+  <div class="pillars-inner">
+    <div class="pillars-header">
+      <h2 class="section-title">Cuatro variables una identidad única.</h2>
+      <p class="section-body">La guía trabaja con cuatro puntos clave de la carta natal, seleccionados por su relación directa con la identidad personal y su traducción visual.</p>
+    </div>
+    <div class="pillars-grid">
+      <div class="pillar-card">
+        <div class="pillar-icon accent-bg">☉</div>
+        <div class="pillar-name">Sol</div>
+        <div class="pillar-title">La esencia de la marca</div>
+        <p class="pillar-desc">Define el propósito central, la personalidad dominante y la propuesta de valor auténtica. Es el núcleo del proyecto.</p>
+        <span class="pillar-tag">¿Quién soy?</span>
+      </div>
+      <div class="pillar-card">
+        <div class="pillar-icon blue-bg">☽</div>
+        <div class="pillar-name">Luna</div>
+        <div class="pillar-title">La conexión emocional</div>
+        <p class="pillar-desc">Determina la temperatura cromática, el tono emocional y el estilo comunicacional que conecta con la audiencia.</p>
+        <span class="pillar-tag">¿Cómo conecto?</span>
+      </div>
+      <div class="pillar-card">
+        <div class="pillar-icon">↑</div>
+        <div class="pillar-name">Ascendente</div>
+        <div class="pillar-title">La expresión visual</div>
+        <p class="pillar-desc">Guía la morfología del logotipo, el estilo gráfico y la primera impresión visual que genera la marca.</p>
+        <span class="pillar-tag">¿Cómo me ven?</span>
+      </div>
+      <div class="pillar-card">
+        <div class="pillar-icon accent-bg">MC</div>
+        <div class="pillar-name">Medio Cielo</div>
+        <div class="pillar-title">El posicionamiento</div>
+        <p class="pillar-desc">Define el nicho, la reputación profesional que se quiere construir y la dirección estratégica de la marca.</p>
+        <span class="pillar-tag">¿Cómo quiero ser reconocida?</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- METHODOLOGY -->
+<section class="methodology">
+  <div style="max-width:1100px; margin:0 auto;">
+    <div class="section-eyebrow">Metodología</div>
+    <h2 class="section-title" style="color:#FFFFFF;">Cinco fases del proceso</h2>
+    <p class="section-body">Un proceso estructurado que parte del símbolo y llega a la identidad visual, sin perder la esencia en el camino.</p>
+    <div class="method-steps">
+      <div class="step-card">
+        <div class="step-num">01</div>
+        <div class="step-title">Obtención de información</div>
+        <p class="step-desc">Entrevista de briefing + elaboración de la carta natal con los datos del cliente.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">02</div>
+        <div class="step-title">Interpretación y análisis</div>
+        <p class="step-desc">Extracción de conceptos clave del brief y análisis sistémico de las cuatro variables astrológicas.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">03</div>
+        <div class="step-title">Traducción visual</div>
+        <p class="step-desc">Los atributos simbólicos se materializan en un moodboard con colores, tipografías y formas.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">04</div>
+        <div class="step-title">Desarrollo de la identidad</div>
+        <p class="step-desc">Diseño del logotipo, sistema tipográfico, paleta cromática, recursos gráficos y dirección de arte.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">05</div>
+        <div class="step-title">Validación y retroalimentación</div>
+        <p class="step-desc">Sesión de retroalimentación con el cliente para confirmar coherencia entre la propuesta y su esencia.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT'S INSIDE -->
+<section class="includes">
+  <div class="includes-inner">
+    <div class="guide-mockup">
+      <div>
+        <div class="guide-top-label">KIT PREMIUM</div>
+        <div style="margin-top:0.6rem;">
+          <div class="guide-title">Tu origen, tu marca</div>
+          <div class="guide-subtitle">Guía para el diseño de marcas personales basado en la interpretación simbólica de la carta natal</div>
+         <img src="GUIA LANDING.png" alt="Guía Landing" class="guide-cover-img">
+        </div>
+      </div>
+      <ul class="guide-chapters">
+        <li>Fundamentos astrológicos: Los 12 signos zodiacales</li>
+        <li>Fundamentos psicológicos: Arquetipos de marca</li>
+        <li>Construcción de marca personal</li>
+        <li>Metodología en 5 fases</li>
+      </ul>
+    </div>
+
+    <div>
+      <div class="section-eyebrow">¿Qué encontrarás?</div>
+      <h2 class="section-title">Construcción de marca desde la esencia</h2>
+      <ul class="includes-list">
+        <li>
+          <div class="includes-check">☉</div>
+          <div>
+            <div class="includes-item-title">Perfiles visuales de los 12 signos</div>
+            <p class="includes-item-desc">Colores, tipografías, formas, texturas y estilo gráfico de cada signo zodiacal aplicados al branding.</p>
+          </div>
+        </li>
+        <li>
+          <div class="includes-check">✦</div>
+          <div>
+            <div class="includes-item-title">Tablas de síntesis semiótica</div>
+            <p class="includes-item-desc">Recursos visuales, fundamento semiótico y respuesta experiencial de cada signo, listos para consultar.</p>
+          </div>
+        </li>
+        <li>
+          <div class="includes-check">☽</div>
+          <div>
+            <div class="includes-item-title">Los 12 arquetipos de personalidad</div>
+            <p class="includes-item-desc">Conexión entre Jung, personalidad de marca y tono comunicacional para diseñar identidades coherentes.</p>
+          </div>
+        </li>
+        <li>
+          <div class="includes-check">↑</div>
+          <div>
+            <div class="includes-item-title">3 casos prácticos reales</div>
+            <p class="includes-item-desc">De la carta natal al moodboard y la identidad visual final — documentados paso a paso.</p>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIOS -->
+<section class="testimonials">
+  <div class="testimonials-inner">
+    <div class="testimonials-header">
+      <div class="section-eyebrow" style="text-align:center;">Lo que dicen</div>
+      <h2 class="section-title" style="text-align:center;">Diseñadoras y diseñadores freelance que ya lo aplican</h2>
+    </div>
+    <div class="testimonials-grid">
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-quote">"Esta guía me permitió traducir la esencia de mis clientes en decisiones visuales claras. El proceso dejó de ser intuitivo y se volvió estratégico."</p>
+        <div class="testimonial-author">— Valentina Beltrán</div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-quote">"Nunca había encontrado una metodología que conectara identidad, simbolismo y branding de una forma tan práctica."</p>
+        <div class="testimonial-author">— Davine Merino</div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-quote">"El kit me ayudó a estructurar mejor mis proyectos y justificar cada decisión visual frente a mis clientes."</p>
+        <div class="testimonial-author">— Andrea Terán</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA DUAL -->
+<section class="cta-section" id="descarga">
+  <div class="cta-header">
+    <div class="section-eyebrow">Elige tu versión</div>
+    <h2 class="section-title">La esencia de una marca nace de su origen.</h2>
+    <p class="section-body">La Guía Gratuita te da la base completa, el Kit Premium te entrega todas las herramientas para implementar la metodología con clientes reales.</p>
+  </div>
+
+  <div class="cta-cards" id="premium">
+    <div class="cta-card free">
+      <span class="cta-card-badge"></span>
+      <div class="cta-card-title-group">
+        <div class="cta-card-title">Convierte tu identidad en una marca</div>
+      </div>
+      <p class="cta-card-desc">Descarga la metodología y descubre cómo transformar el lenguaje simbólico de la carta natal en una identidad visual con significado.</p>
+      <ul class="cta-card-features">
+        <li><span class="feature-check">✓</span> Concepto base de identidad simbólica</li>
+        <li><span class="feature-check">✓</span> Explicación de los 4 pilares de la carta natal</li>
+        <li><span class="feature-check">✓</span> Tabla síntesis de signos zodiacales</li>
+        <li><span class="feature-check">✓</span> Recursos básicos para construir tu brief</li>
+        <li><span class="feature-check">✓</span> Pasos de la metodología</li>
+      </ul>
+      <div class="cta-card-footer">
+        <a href="https://drive.google.com/file/d/14NI4u3GsgRnWBwY4n28SgenxJU-qr0QS/view?usp=sharing" target="_blank" class="cta-btn-free">
+          Quiero la Guía Gratuita
+        </a>
+      </div>
+    </div>
+
+    <div class="cta-card premium">
+      <!----<div class="premium-star">✦</div> ---->
+      <span class="cta-card-badge"></span>
+      <div class="cta-card-title-group">
+        <div class="cta-card-title">Guía completa + Workbook de trabajo</div>
+      </div>
+      <p class="cta-card-desc">Un sistema que integra astrología, semiótica y diseño para transformar la carta natal en una identidad de marca y traducirla en decisiones visuales.</p>
+      <ul class="cta-card-features">
+        <li><span class="feature-check">✓</span> Guía premium en su versión física y digital</li>
+        <!--<<li><span class="feature-check">✓</span> Guía premium en su versión digital</li>/// -->
+        <li><span class="feature-check">✓</span> Workbook premium + sistema listo para construir una marca real</li>
+        <li><span class="feature-check">✓</span> Ejemplos aplicados de construcción de identidad</li>
+        <li><span class="feature-check">✓</span> Interpretación profunda de los 4 pilares + signos</li>
+      </ul>
+      <div class="cta-card-footer">
+        <a href="https://gumroad.com" target="_blank" class="cta-btn-premium">
+          Quiero el Kit Premium 
+        </a>
+        <p class="premium-note">Disponible en Gumroad · Pago seguro</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-shipping">
+    <div class="footer-shipping-title">Información de envío</div>
+    <p>Los envíos físicos del Kit Premium están disponibles dentro de Ecuador.</p>
+    <p>Si te encuentras en otro país y deseas adquirir el kit, puedes contactarnos para revisar la disponibilidad y las condiciones de envío internacional.</p>
+  </div>
+  <div class="footer-copy">
+    <p><strong>Tu Origen, Tu Marca</strong></p>
+    <p>Autoría y Diseño - Nicole Guillen.</p>
+  </div>
+</footer>
+
+</body>
+</html>
